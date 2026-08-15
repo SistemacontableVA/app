@@ -1,0 +1,13 @@
+# Windows
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Editor
+.vscode/settings.json
+*.suo
+*.user
+
+# Logs
+*.log

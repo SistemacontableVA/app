@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Nómina · Angelus Visión</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230c2d48'/><text y='.9em' font-size='70' x='15'>🦅</text></svg>">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Poppins', 'sans-serif'] },
+          borderRadius: { 'md-plus': '18px' },
+          boxShadow: {
+            card: '0 10px 30px -10px rgba(12,45,72,0.22)',
+            soft: '0 4px 14px -4px rgba(12,45,72,0.14)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Estilos globales (paleta + componentes) -->
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body class="bg-gris-claro min-h-screen text-gris-oscuro">
+
+  <!-- ══════════════════════════════════════════════════════════
+       LANDING — Selección de perfil
+       ══════════════════════════════════════════════════════════ -->
+  <div id="landing-bienvenida" class="tech-grid min-h-screen w-full flex items-center justify-center px-4 py-10 fade-in bg-[#f8fafc]">
+    <div class="w-full max-w-md sm:max-w-xl text-center relative z-10">
+
+      <img
+        src="https://raw.githubusercontent.com/Soportekgservices/Visiondeaguila/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png"
+        class="mx-auto w-40 sm:w-48 mb-8 drop-shadow-md"
+        alt="Logo Visión de Águila">
+
+      <!-- Título con líneas decorativas -->
+      <div class="flex items-center justify-center gap-3 w-full sm:max-w-[110%] sm:-ml-[5%] mb-1">
+        <span class="h-px bg-gradient-to-r from-transparent to-verde-claro flex-1 opacity-70"></span>
+        <h1 class="text-verde-oscuro font-extrabold text-2xl sm:text-3xl leading-tight whitespace-nowrap">Bienvenido al Sistema Contable</h1>
+        <span class="h-px bg-gradient-to-l from-transparent to-verde-claro flex-1 opacity-70"></span>
+      </div>
+
+      <p class="text-verde-oscuro font-bold text-base sm:text-lg mb-4">Óptica Visión de Águila</p>
+      <p class="text-gris-medio text-xs sm:text-sm mt-2 mb-10 opacity-80">Seleccione el perfil con el que desea ingresar.</p>
+
+      <div class="flex flex-col gap-4 max-w-md mx-auto">
+
+        <!-- Asesor de Campo -->
+        <button onclick="ingresarAsesor()" id="btn-perfil-asesor"
+          class="group w-full btn-primario relative overflow-hidden active:scale-95 transition-all duration-300 text-white flex items-center p-3.5 sm:p-4 rounded-xl shadow-card border border-white/10">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-100%] group-hover:translate-x-[100%] duration-1000"></div>
+          <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 relative flex items-center justify-center mr-3 sm:mr-4">
+            <svg class="absolute inset-0 w-full h-full text-verde-claro opacity-20 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7.77v8.46L12 22l10-5.77V7.77L12 2z"/></svg>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          </div>
+          <div class="flex-1 text-left">
+            <span class="block font-bold text-[15px] sm:text-lg tracking-wide leading-tight">Asesor de Campo</span>
+            <span class="block text-white/60 text-[10px] sm:text-xs mt-0.5 font-medium">Gestión y consulta de información</span>
+          </div>
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 opacity-50 group-hover:opacity-100 group-hover:text-verde-claro transition-all group-hover:translate-x-1 duration-300 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Coordinador de Campo -->
+        <button onclick="mostrarProximamente()" id="btn-perfil-coordinador"
+          class="group w-full bg-white hover:bg-[#fcfdfd] relative overflow-hidden active:scale-95 transition-all duration-300 flex items-center p-3.5 sm:p-4 rounded-xl shadow-[0_4px_20px_-5px_rgba(12,45,72,0.08)] border border-slate-200/80 hover:border-verde-claro/40">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 relative flex items-center justify-center mr-3 sm:mr-4">
+            <svg class="absolute inset-0 w-full h-full text-verde-oscuro opacity-[0.05] group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7.77v8.46L12 22l10-5.77V7.77L12 2z"/></svg>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 relative z-10 text-verde-oscuro group-hover:text-verde-claro transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <div class="flex-1 text-left">
+            <span class="block font-bold text-verde-oscuro text-[15px] sm:text-lg tracking-wide leading-tight group-hover:text-verde-claro transition-colors">Coordinador de Campo</span>
+            <span class="block text-gris-medio text-[10px] sm:text-xs mt-0.5 font-medium">Supervisión y reportes de campo</span>
+          </div>
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-verde-claro opacity-30 group-hover:opacity-100 transition-all group-hover:translate-x-1 duration-300 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Administrativo -->
+        <button onclick="ingresarAdmin()" id="btn-perfil-administrativo"
+          class="group w-full bg-white hover:bg-[#fcfdfd] relative overflow-hidden active:scale-95 transition-all duration-300 flex items-center p-3.5 sm:p-4 rounded-xl shadow-[0_4px_20px_-5px_rgba(12,45,72,0.08)] border border-slate-200/80 hover:border-verde-claro/40">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 relative flex items-center justify-center mr-3 sm:mr-4">
+            <svg class="absolute inset-0 w-full h-full text-verde-oscuro opacity-[0.05] group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7.77v8.46L12 22l10-5.77V7.77L12 2z"/></svg>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 relative z-10 text-verde-oscuro group-hover:text-verde-claro transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="flex-1 text-left">
+            <span class="block font-bold text-verde-oscuro text-[15px] sm:text-lg tracking-wide leading-tight group-hover:text-verde-claro transition-colors">Administrativo</span>
+            <span class="block text-gris-medio text-[10px] sm:text-xs mt-0.5 font-medium">Administración del sistema</span>
+          </div>
+          <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-verde-claro opacity-30 group-hover:opacity-100 transition-all group-hover:translate-x-1 duration-300 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- Footer versión -->
+      <div class="mt-14 flex flex-col items-center justify-center gap-3">
+        <div class="flex items-center gap-2 w-32 opacity-40">
+          <span class="h-px bg-slate-400 flex-1"></span>
+          <span class="w-2.5 h-2.5 rounded-full border-[1.5px] border-verde-claro bg-transparent"></span>
+          <span class="h-px bg-slate-400 flex-1"></span>
+        </div>
+        <p class="text-slate-400/80 text-[10px] tracking-wide font-medium">Versión del sistema · v5.0</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL — "Próximamente disponible"
+       ══════════════════════════════════════════════════════════ -->
+  <div id="modal-proximamente" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4">
+    <div id="modal-overlay" onclick="cerrarModalProximamente()" class="absolute inset-0 overlay-verde"></div>
+    <div class="relative bg-white rounded-md-plus shadow-card p-6 sm:p-8 max-w-sm w-full text-center scale-95 fade-in">
+      <div class="w-14 h-14 mx-auto rounded-full bg-verde-suave flex items-center justify-center mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-verde-oscuro" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <h3 class="text-verde-oscuro font-bold text-lg mb-1">Próximamente disponible</h3>
+      <p class="text-gris-medio text-sm mb-6">Este perfil estará habilitado muy pronto.</p>
+      <button onclick="cerrarModalProximamente()"
+        class="w-full btn-primario active:scale-95 transition-all duration-200 text-white font-semibold text-sm px-6 py-3 rounded-md-plus">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       PANTALLA DE BÚSQUEDA INTERMEDIA (nueva en V6)
+       ══════════════════════════════════════════════════════════ -->
+  <div id="pantalla-busqueda" class="hidden min-h-screen w-full flex items-center justify-center px-4 bg-[#f4f6f8] fade-in">
+    <div class="w-full max-w-4xl flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-16">
+
+      <!-- Logo y título -->
+      <div class="flex items-center gap-4 sm:gap-5">
+        <img src="https://raw.githubusercontent.com/Soportekgservices/Visiondeaguila/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png"
+          class="w-24 sm:w-28 drop-shadow-md" alt="Logo">
+        <div class="text-left">
+          <h1 class="text-verde-oscuro font-extrabold text-2xl sm:text-3xl leading-tight">Portal de Nómina</h1>
+          <p class="text-gris-medio text-sm sm:text-base font-medium mt-0.5">Consulta individual</p>
+        </div>
+      </div>
+
+      <!-- Buscador centrado -->
+      <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(12,45,72,0.06)] p-2 flex items-center gap-2 w-full max-w-sm sm:w-[420px] border border-slate-100">
+        <input type="text" id="cedula-inicial" inputmode="numeric" placeholder="Cédula del asesor"
+          class="flex-1 min-w-0 px-5 py-3.5 rounded-xl text-base font-medium input-foco-verde placeholder:text-slate-400/80 bg-transparent"
+          onkeydown="if(event.key==='Enter') iniciarBusqueda()">
+        <button onclick="iniciarBusqueda()" id="btn-consultar-inicial"
+          class="shrink-0 btn-primario active:scale-95 transition-all text-white font-bold text-base px-7 py-3.5 rounded-[12px] flex items-center gap-2 shadow-sm">
+          <span id="btn-text-inicial">Consultar</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CONTENEDOR PRINCIPAL — Los módulos se inyectan aquí
+       ══════════════════════════════════════════════════════════ -->
+  <div id="app-container" class="hidden"></div>
+
+  <!-- Router principal -->
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>

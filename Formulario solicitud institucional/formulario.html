@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        body {
+            background: #f4f6f8;
+            margin: 20px
+        }
+
+        .contenedor {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, .15)
+        }
+
+        h2 {
+            text-align: center;
+            color: #004A59;
+            margin-top: 0
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #555
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 5px
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer
+        }
+
+        #btnGenerar {
+            background: #004A59;
+            color: #fff
+        }
+
+        #btnVista {
+            display: none;
+            background: #2196F3;
+            color: #fff
+        }
+
+        #btnPDF {
+            display: none;
+            background: #43A047;
+            color: #fff
+        }
+
+        #estado {
+            display: none;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            text-align: center;
+            font-weight: bold
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: #004A59;
+            font-weight: bold
+        }
+
+        .spinner {
+            width: 35px;
+            height: 35px;
+            border: 4px solid #ddd;
+            border-top: 4px solid #004A59;
+            border-radius: 50%;
+            margin: 15px auto;
+            animation: girar 1s linear infinite
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(0)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <h2>Solicitud Institucional</h2>
+
+        <label>Fecha del Informe</label>
+        <input type="text" id="fechaInforme">
+
+        <label>Institución</label>
+        <input type="text" id="institucion">
+
+        <label>Municipio</label>
+        <input type="text" id="municipio">
+
+        <label>Lugar de la Jornada</label>
+        <input type="text" id="lugar">
+
+        <label>Fechas de Difusión</label>
+        <input type="text" id="difusion" placeholder="15, 16 y 17 de julio de 2026">
+
+        <label>Fecha de la Jornada</label>
+        <input type="text" id="fechaJornada" placeholder="04 de agosto de 2026">
+
+        <label>Hora Inicio</label>
+        <input type="text" id="horaInicio">
+
+        <label>Hora Fin</label>
+        <input type="text" id="horaFin">
+
+        <button id="btnGenerar" onclick="generarDocumento()">Generar Documento</button>
+
+        <div id="loading">
+            <div class="spinner"></div>
+            Generando documento...<br>Espere unos segundos.
+        </div>
+
+        <div id="estado">✅ Documento generado correctamente.</div>
+
+        <button id="btnVista" onclick="abrirVista()">Abrir Vista Previa</button>
+        <button id="btnPDF" onclick="exportarPDF()">Exportar PDF</button>
+
+    </div>
+
+    <script>
+        let documentoID = "";
+        let documentoURL = "";
+
+        google.script.run.withSuccessHandler(function (c) {
+            fechaInforme.value = c.fechaInforme;
+            horaInicio.value = c.horaInicio;
+            horaFin.value = c.horaFin;
+        }).obtenerConfiguracion();
+
+        function generarDocumento() {
+
+            btnGenerar.disabled = true;
+            btnGenerar.innerHTML = "Generando...";
+            loading.style.display = "block";
+
+            const datos = {
+                fechaInforme: fechaInforme.value,
+                institucion: institucion.value,
+                municipio: municipio.value,
+                lugar: lugar.value,
+                difusion: difusion.value,
+                fechaJornada: fechaJornada.value,
+                horaInicio: horaInicio.value,
+                horaFin: horaFin.value
+            };
+
+            google.script.run.withSuccessHandler(function (r) {
+
+                loading.style.display = "none";
+                btnGenerar.disabled = false;
+                btnGenerar.innerHTML = "Generar Documento";
+
+                if (r.ok) {
+                    documentoID = r.id;
+                    documentoURL = r.url;
+                    estado.style.display = "block";
+                    btnVista.style.display = "block";
+                    btnPDF.style.display = "block";
+                } else {
+                    alert(r.mensaje);
+                }
+
+            }).generarDocumento(datos);
+
+        }
+
+        function abrirVista() {
+            window.open(documentoURL, "_blank");
+        }
+
+        function exportarPDF() {
+            btnPDF.disabled = true;
+            btnPDF.innerHTML = "Exportando...";
+
+            google.script.run.withSuccessHandler(function (r) {
+                btnPDF.disabled = false;
+                btnPDF.innerHTML = "Exportar PDF";
+                if (r.ok) {
+                    window.open(r.url, "_blank");
+                    google.script.host.close();
+                }
+            }).exportarPDF(documentoID);
+        }
+    </script>
+</body>
+
+</html>

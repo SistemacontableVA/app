@@ -1,0 +1,222 @@
+/* ============================================================
+   MAIN.CSS — Estilos globales del sistema
+   Portal de Nómina · Óptica Visión de Águila
+   ============================================================ */
+
+/* ================================================================
+   🎨  PALETA DE COLORES DEL SISTEMA — EDITA AQUÍ
+   Todos los valores están en formato RGB / RGBA.
+   Cambia cualquier variable: se actualizará en TODO el documento.
+   ================================================================ */
+:root {
+  /* ---------- 1. COLORES BASE ---------- */
+  --verde-oscuro:  rgb(12, 45, 72);     /* Azul Marino principal (banner, cabeceras, tabla) */
+  --verde-medio:   rgb(212, 161, 56);   /* Dorado (botones, acentos, iconos activos) */
+  --verde-claro:   rgb(235, 187, 87);   /* Dorado claro (brillos, saldo positivo) */
+
+  --gris-oscuro:   rgb(47, 58, 69);     /* Texto principal */
+  --gris-medio:    rgb(71, 85, 105);    /* Texto secundario / etiquetas */
+  --gris-claro:    rgb(243, 244, 246);  /* Fondo general de la página */
+  --blanco:        rgb(255, 255, 255);
+
+  --rojo:          rgb(244, 63, 94);    /* Deducciones, mensajes de error */
+  --rojo-oscuro:   rgb(225, 29, 72);    /* Total deducciones (fila de énfasis) */
+  --rojo-claro:    rgb(253, 164, 175);  /* Texto rojo sobre fondo oscuro (saldo negativo) */
+  --rojo-fondo:    rgb(255, 241, 241);  /* Fondo claro para bloque de alerta roja */
+
+  /* ---------- 2. COLOR POR SECCIÓN ---------- */
+  --color-banner:             var(--verde-oscuro);
+  --color-header-ingresos:    var(--verde-oscuro);
+  --color-header-deducciones: var(--verde-oscuro);
+  --color-tabla-header:       var(--verde-oscuro);
+  --color-footer:             var(--verde-oscuro);
+  --color-boton-activo:       var(--verde-oscuro);  /* Botones principales en azul marino */
+  --color-boton-hover:        rgb(8, 30, 48);       /* Azul marino más oscuro al hover */
+  --color-saldo-inicio:       var(--verde-oscuro);
+  --color-saldo-fin:          rgb(8, 30, 48);
+
+  /* ---------- 3. TRANSPARENCIAS SOBRE FONDO OSCURO ---------- */
+  --sobre-oscuro-90:            rgba(255, 255, 255, 0.90);
+  --sobre-oscuro-fuerte:        rgba(255, 255, 255, 0.80);
+  --sobre-oscuro-medio:         rgba(255, 255, 255, 0.70);
+  --sobre-oscuro-sutil:         rgba(255, 255, 255, 0.40);
+  --fondo-sobre-oscuro-fuerte:  rgba(255, 255, 255, 0.20);
+  --fondo-sobre-oscuro-sutil:   rgba(255, 255, 255, 0.10);
+  --borde-sobre-oscuro:         rgba(255, 255, 255, 0.10);
+}
+
+/* ================================================================
+   CLASES DE COLOR — generadas a partir de las variables de :root
+   ================================================================ */
+
+/* --- Fondos --- */
+.bg-verde-oscuro  { background-color: var(--color-banner); }
+.bg-verde-medio   { background-color: var(--color-boton-activo); }
+.bg-verde-claro   { background-color: var(--verde-claro); }
+.bg-verde-suave   { background-color: rgba(212, 161, 56, 0.15); }
+.bg-gris-claro    { background-color: var(--gris-claro); }
+.bg-gris-claro-70 { background-color: rgba(243, 244, 246, 0.70); }
+.bg-gris-claro-60 { background-color: rgba(243, 244, 246, 0.60); }
+.bg-rojo-suave    { background-color: var(--rojo-fondo); }
+
+/* --- Fondos / bordes sobre superficies oscuras --- */
+.fondo-sobre-oscuro-fuerte { background-color: var(--fondo-sobre-oscuro-fuerte); }
+.fondo-sobre-oscuro-sutil  { background-color: var(--fondo-sobre-oscuro-sutil); }
+.borde-sobre-oscuro        { border-color: var(--borde-sobre-oscuro); }
+.overlay-verde             { background-color: rgba(12, 45, 72, 0.6); }
+
+/* --- Texto --- */
+.text-verde-oscuro { color: var(--verde-oscuro); }
+.text-verde-medio  { color: var(--verde-medio); }
+.text-verde-claro  { color: var(--verde-claro); }
+.text-gris-oscuro  { color: var(--gris-oscuro); }
+.text-gris-medio   { color: var(--gris-medio); }
+.text-rojo         { color: var(--rojo); }
+.text-rojo-oscuro  { color: var(--rojo-oscuro); }
+.text-rojo-claro   { color: var(--rojo-claro); }
+.text-rojo-claro-60 { color: rgba(253, 164, 175, 0.6); }
+
+/* --- Texto sobre fondo oscuro --- */
+.texto-sobre-oscuro-90     { color: var(--sobre-oscuro-90); }
+.texto-sobre-oscuro-fuerte { color: var(--sobre-oscuro-fuerte); }
+.texto-sobre-oscuro-medio  { color: var(--sobre-oscuro-medio); }
+.texto-sobre-oscuro-sutil  { color: var(--sobre-oscuro-sutil); }
+
+/* --- Bordes --- */
+.border-verde-medio { border-color: var(--verde-medio); }
+.border-rojo        { border-color: var(--rojo); }
+
+/* ================================================================
+   COMPONENTES DE COLOR COMPUESTO
+   ================================================================ */
+.btn-primario {
+  background-color: var(--color-boton-activo);
+  color: #ffffff;
+  transition: background-color .2s;
+}
+.btn-primario:hover { background-color: var(--color-boton-hover); color: #ffffff; }
+
+.fila-hover:hover { background-color: rgba(12, 45, 72, 0.05); }
+
+.input-foco-verde { outline: none; }
+.input-foco-verde:focus { box-shadow: 0 0 0 2px rgba(212, 161, 56, 0.5); }
+
+.gradiente-verde-oscuro {
+  background: linear-gradient(135deg, var(--color-saldo-inicio), var(--color-saldo-fin));
+}
+.saldo-fondo-normal {
+  background: linear-gradient(135deg, var(--color-saldo-inicio), var(--color-saldo-fin));
+}
+.saldo-fondo-negativo { background: var(--rojo-fondo); }
+
+.tabla-header { background-color: var(--color-tabla-header); }
+
+/* ================================================================
+   ESTILOS GENERALES
+   ================================================================ */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ── Animaciones de entrada ── */
+.fade-in {
+  animation: fadeIn .5s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.stagger {
+  animation: fadeIn .4s ease both;
+}
+
+/* ── Spinner de carga ── */
+.spinner {
+  border: 3px solid rgba(212, 161, 56, 0.15);
+  border-top-color: rgb(212, 161, 56);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Scrollbar personalizada ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+/* ── Ocultar en impresión ── */
+@media print {
+  .no-print { display: none !important; }
+}
+
+/* ── Efecto tecnológico: patrón de circuito + brillo ── */
+.tech-grid {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 18% 30%, rgba(102,187,106,0.22) 0, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(102,187,106,0.18) 0, transparent 40%),
+    linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: auto, auto, 26px 26px, 26px 26px;
+}
+
+.tech-grid > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tech-glow-line {
+  height: 3px;
+  width: 64px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--verde-claro), transparent);
+  box-shadow: 0 0 10px 1px rgba(102,187,106,0.8);
+}
+
+.tech-dot {
+  box-shadow: 0 0 0 4px rgba(102,187,106,0.15);
+}
+
+/* ── Tarjeta premium "Saldo final a pagar" ── */
+.saldo-card {
+  box-shadow:
+    0 16px 36px -14px rgba(12,45,72,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ── Iconos de pestañas/filtros: contraste en ambos estados ── */
+.vista-btn.bg-white .icon-wrap,
+.filtro-btn.bg-white .icon-wrap {
+  background-color: rgba(212, 161, 56, 0.15) !important;
+}
+
+.vista-btn.bg-white .icon-wrap svg,
+.filtro-btn.bg-white .icon-wrap svg {
+  color: rgb(212, 161, 56) !important;
+}
+
+.vista-btn.bg-verde-medio .icon-wrap,
+.filtro-btn.bg-verde-medio .icon-wrap {
+  background-color: rgba(255,255,255,0.20) !important;
+}
+
+.vista-btn.bg-verde-medio .icon-wrap svg,
+.filtro-btn.bg-verde-medio .icon-wrap svg {
+  color: #FFFFFF !important;
+}

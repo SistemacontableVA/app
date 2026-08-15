@@ -1,0 +1,236 @@
+/* ============================================================
+   ADMIN.CSS — Estilos exclusivos del módulo Administración
+   Óptica Visión de Águila
+
+   Solo contiene lo que Tailwind no puede expresar inline:
+   layout de dos columnas, scroll de sidebar, transiciones
+   de la shell y estados activos del menú.
+   ============================================================ */
+
+/* ── Shell: layout sidebar + contenido ── */
+#admin-shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: rgb(243, 244, 246);  /* --gris-claro V6 */
+}
+
+/* ── Sidebar ── */
+#admin-sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: rgb(12, 45, 72);   /* --verde-oscuro: azul marino V6 */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.2s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+#admin-sidebar::-webkit-scrollbar { width: 4px; }
+#admin-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+/* ── Sidebar logo ── */
+.admin-sidebar-logo {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+
+/* ── Secciones del menu ── */
+.admin-menu-section {
+  padding: 18px 18px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+/* ── Items del menu ── */
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  margin: 1px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.admin-menu-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+}
+
+.admin-menu-item.activo {
+  background: rgba(255,255,255,0.13);
+  color: #fff;
+  font-weight: 600;
+}
+
+.admin-menu-item.activo .admin-menu-icon {
+  color: rgb(212, 161, 56);    /* --verde-medio: dorado V6 como acento activo */
+}
+
+.admin-menu-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* ── Footer del sidebar ── */
+.admin-sidebar-footer {
+  margin-top: auto;
+  padding: 14px 18px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+
+/* ── Main wrapper (topbar + contenido) ── */
+#admin-main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Topbar ── */
+#admin-topbar {
+  height: 56px;
+  min-height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* ── Contenido principal scrolleable ── */
+#admin-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+#admin-content::-webkit-scrollbar { width: 5px; }
+#admin-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
+
+/* ── Cards del dashboard ── */
+.admin-kpi-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 14px -4px rgba(11,89,105,0.10);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.admin-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(11,89,105,0.16);
+}
+
+/* ── Tabla de actividad ── */
+.admin-activity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.admin-activity-row:last-child { border-bottom: none; }
+
+/* ── Badge de tipo ── */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Login card ── */
+.admin-login-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px -12px rgba(11,89,105,0.22);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ── Input del login ── */
+.admin-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  color: #1e293b;
+  background: #f8fafc;
+}
+
+.admin-input:focus {
+  border-color: rgb(12, 45, 72);
+  box-shadow: 0 0 0 3px rgba(12, 45, 72, 0.10);
+  background: #fff;
+}
+
+/* ── Botón primario admin ── */
+.admin-btn-primary {
+  width: 100%;
+  background: rgb(12, 45, 72);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.admin-btn-primary:hover  { background: rgb(8, 30, 48); }
+.admin-btn-primary:active { transform: scale(0.98); }
+
+/* ── Error de login ── */
+.admin-login-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #dc2626;
+  display: none;
+}
+
+.admin-login-error.visible { display: block; }
+
+/* ── Mobile: ocultar sidebar ── */
+@media (max-width: 768px) {
+  #admin-sidebar { display: none; }
+  #admin-content { padding: 16px; }
+}
