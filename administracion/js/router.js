@@ -38,6 +38,15 @@ function adminNavegar(seccion) {
 
   _adminRutaActual = seccion;
 
+  // En móvil: cerrar el sidebar al navegar
+  if (window.innerWidth <= 768) {
+    var sidebar = document.getElementById('admin-sidebar');
+    var overlay = document.getElementById('admin-mobile-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   // Actualizar título del topbar
   var tituloEl = document.getElementById('admin-topbar-titulo');
   if (tituloEl) tituloEl.textContent = ruta.titulo;
@@ -116,3 +125,24 @@ function adminLogout() {
 (function () {
   adminNavegar('dashboard');
 })();
+
+/**
+ * Abre/cierra el sidebar en móvil (drawer).
+ * Llamado desde el botón hamburguesa del topbar.
+ */
+function adminToggleSidebar() {
+  var sidebar = document.getElementById('admin-sidebar');
+  var overlay = document.getElementById('admin-mobile-overlay');
+  if (!sidebar || !overlay) return;
+
+  var isOpen = sidebar.classList.contains('open');
+  if (isOpen) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
