@@ -168,7 +168,18 @@ function ingresarAdmin() {
   document.getElementById('landing-bienvenida').classList.add('hidden');
   document.getElementById('app-container').classList.remove('hidden');
   mostrarModulo('admin-login');
+  // Empujar estado al historial para interceptar el botón "atrás"
+  history.pushState({ modulo: 'admin' }, '');
 }
+
+// Interceptar "atrás" del navegador — si el usuario está en el admin,
+// ir al dashboard en lugar de salir de la sesión
+window.addEventListener('popstate', function () {
+  if (document.getElementById('admin-shell')) {
+    history.pushState({ modulo: 'admin' }, '');
+    if (typeof adminNavegar === 'function') adminNavegar('dashboard');
+  }
+});
 
 function mostrarProximamente() {
   document.getElementById('modal-proximamente').classList.remove('hidden');

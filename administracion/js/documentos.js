@@ -48,6 +48,14 @@ function renderDocumentos() {
       color:  'bg-amber-50 text-amber-700',
       activo: true,
       icono:  '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>'
+    },
+    {
+      clave:  DocumentosService.TIPOS.PUBLICIDAD,
+      label:  'Publicidad de Brigada',
+      desc:   'Afiche informativo para brigadas optométricas en municipios',
+      color:  'bg-pink-50 text-pink-700',
+      activo: true,
+      icono:  '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>'
     }
   ];
 
@@ -158,6 +166,9 @@ function adminDocumentoSeleccionar(tipo) {
       break;
     case DocumentosService.TIPOS.HOJA_CONVENIO:
       _renderSelectorHojaConvenio();
+      break;
+    case DocumentosService.TIPOS.PUBLICIDAD:
+      _renderFormPublicidad();
       break;
     default:
       var el = document.querySelector('[onclick*="' + tipo + '"]');
@@ -670,6 +681,25 @@ function _campoInput(id, label, valor, tipo, requerido, placeholder) {
       ' class="w-full px-3.5 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-700' +
       ' bg-slate-50 focus:outline-none focus:border-verde-oscuro focus:ring-2 focus:ring-verde-oscuro/10' +
       ' focus:bg-white transition-all">' +
+  '</div>';
+}
+
+/**
+ * Genera un campo selector de color.
+ * @param {string} id
+ * @param {string} label
+ * @param {string} defaultColor - color hex por defecto, ej: '#ffffff'
+ */
+function _campoColor(id, label, defaultColor) {
+  return '<div>' +
+    '<label for="' + id + '" class="block text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1.5">' +
+      label +
+    '</label>' +
+    '<div class="flex items-center gap-2">' +
+      '<input type="color" id="' + id + '" value="' + (defaultColor || '#ffffff') + '"' +
+        ' class="w-10 h-9 rounded cursor-pointer border border-slate-200 bg-slate-50 p-0.5">' +
+      '<span class="text-xs text-slate-400" id="' + id + '-txt">' + (defaultColor || '#ffffff') + '</span>' +
+    '</div>' +
   '</div>';
 }
 
@@ -1459,4 +1489,323 @@ function _resetFormPP() {
   document.getElementById('pp-btn-generar').disabled = false;
   document.getElementById('pp-btn-texto').textContent = 'Generar Documento';
   document.getElementById('pp-senores').focus();
+}
+
+/* ──────────────────────────────────────────────────────────────
+   PUBLICIDAD DE BRIGADA — Formulario + render con imagen base
+────────────────────────────────────────────────────────────── */
+
+function _renderFormPublicidad() {
+  var contenedor = document.getElementById('admin-content');
+  if (!contenedor) return;
+
+  contenedor.innerHTML =
+    '<div class="fade-in">' +
+
+      // Encabezado
+      '<div class="flex items-center gap-3 mb-6">' +
+        '<button onclick="renderDocumentos()"' +
+          ' class="flex items-center gap-1.5 text-slate-500 hover:text-verde-oscuro transition-colors text-sm font-medium group">' +
+          '<svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>' +
+          '</svg>Volver' +
+        '</button>' +
+        '<div class="w-px h-5 bg-slate-200"></div>' +
+        '<div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center">' +
+          '<svg class="w-4 h-4 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div>' +
+          '<h3 class="text-verde-oscuro font-bold text-base leading-tight">Publicidad de Brigada</h3>' +
+          '<p class="text-slate-400 text-xs">Afiche informativo para brigadas optométricas</p>' +
+        '</div>' +
+      '</div>' +
+
+      // Layout: formulario izquierda + preview derecha
+      '<div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-start">' +
+
+        // Formulario
+        '<div class="bg-white rounded-xl shadow-soft p-6">' +
+
+          '<div class="flex items-start gap-3 bg-pink-50 border border-pink-200 rounded-xl px-4 py-3 mb-5">' +
+            '<svg class="w-4 h-4 text-pink-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+            '</svg>' +
+            '<span class="text-xs text-pink-700">Los datos se colocan sobre la imagen de la plantilla. Usa <strong>Ctrl+P</strong> para guardar como PDF o imagen.</span>' +
+          '</div>' +
+
+          '<div class="space-y-4 mb-6">' +
+            _campoInput('pub-municipio',        'Municipio',                   '',           'text',  true,  'Ej: Ejido') +
+            _campoInput('pub-institucion',      'Institución',                 '',           'text',  true,  'Ej: Clínica José Martí') +
+            _campoInput('pub-fecha',            'Fecha',                       '',           'text',  true,  'Ej: Miércoles 2 de agosto') +
+            _campoInput('pub-horario',          'Horario',                     '8:00 AM a 5:00 PM', 'text', false, 'Ej: 8:00 AM a 5:00 PM') +
+          '</div>' +
+
+          '<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">' +
+            '<button onclick="_generarPublicidad()" id="pub-btn-generar"' +
+              ' class="col-span-2 sm:col-span-1 btn-primario hover:bg-verde-oscuro active:scale-95 transition-all text-white font-semibold text-sm px-4 py-3 rounded-xl flex items-center justify-center gap-2 shadow-card">' +
+              '<svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>' +
+              '</svg>' +
+              '<span id="pub-btn-texto">Previsualizar</span>' +
+            '</button>' +
+            '<button onclick="_imprimirPublicidad()" id="pub-btn-imprimir"' +
+              ' class="py-3 px-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:border-verde-oscuro hover:text-verde-oscuro transition-all text-sm font-semibold flex items-center justify-center gap-1">' +
+              '<svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>' +
+              '</svg>' +
+              '<span>Imprimir</span>' +
+            '</button>' +
+            '<button onclick="_descargarPublicidad()" id="pub-btn-descargar"' +
+              ' class="py-3 px-2 bg-white border border-slate-200 rounded-xl text-slate-600 hover:border-azul hover:text-azul transition-all text-sm font-semibold flex items-center justify-center gap-1">' +
+              '<svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>' +
+              '</svg>' +
+              '<span>Descargar</span>' +
+            '</button>' +
+          '</div>' +
+
+          '<div id="pub-error" class="hidden mt-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700"></div>' +
+
+        '</div>' +
+
+        // Preview en vivo — posiciones escaladas: factor 280/1055 = 0.2654
+        // Preview con proporciones exactas (escala 0.2654 de 1055x1491)
+        '<div class="hidden lg:block">' +
+          '<p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-2 text-center">Vista previa · 1:3.77</p>' +
+          '<div id="pub-preview-wrap"' +
+            ' style="position:relative;width:280px;height:396px;' +
+            'background-image:url(\'administracion/documentos/templates/Publicidad.jpg\');' +
+            'background-size:100% 100%;border-radius:8px;overflow:hidden;' +
+            'box-shadow:0 8px 24px rgba(0,0,0,0.18);">' +
+            /* Municipio: left:265->70 top:335->89 w:395->105 fs:40->11 colores fijo=#fff din=#d49500 */
+            '<div id="prev-municipio" style="position:absolute;left:70px;top:89px;width:105px;' +
+              'text-align:center;font-family:lato,sans-serif;font-size:11px;font-weight:800;' +
+              'text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2;">' +
+              '<span style="color:#ffffff;">Municipio: </span>' +
+              '<span id="prev-mun-val" style="color:#d49500;"></span>' +
+            '</div>' +
+            /* Institucion: left:320->85 top:548->145 w:525->139 fs:35->9 color=#00363a */
+            '<div id="prev-institucion" style="position:absolute;left:85px;top:145px;width:139px;' +
+              'text-align:center;font-family:lato,sans-serif;font-size:9px;font-weight:900;color:#00363a;' +
+              'white-space:normal;word-break:break-word;line-height:1.2;"></div>' +
+            /* Fecha: left:140->37 top:1162->308 w:350->93 fs:29->8 colores fijo=#fff din=#fff */
+            '<div id="prev-fecha" style="position:absolute;left:37px;top:308px;width:93px;' +
+              'text-align:left;font-family:lato,sans-serif;font-size:8px;font-weight:700;' +
+              'white-space:nowrap;line-height:1.2;">' +
+              '<span style="color:#ffffff;">Fecha: </span>' +
+              '<span id="prev-fecha-val" style="color:#ffffff;"></span>' +
+            '</div>' +
+            /* Horario: left:140->37 top:1200->318 w:355->94 fs:29->8 colores fijo=#fff din=#d49500 */
+            '<div id="prev-horario" style="position:absolute;left:37px;top:318px;width:94px;' +
+              'text-align:left;font-family:lato,sans-serif;font-size:8px;font-weight:700;' +
+              'white-space:nowrap;line-height:1.2;">' +
+              '<span style="color:#ffffff;">Horario: </span>' +
+              '<span id="prev-hor-val" style="color:#d49500;"></span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' + // fin grid
+
+    '</div>';
+
+  // Actualizar preview en tiempo real al escribir
+  ['pub-municipio', 'pub-institucion', 'pub-fecha', 'pub-horario'].forEach(function(id) {
+    var input = document.getElementById(id);
+    if (input) input.addEventListener('input', _actualizarPreviewPublicidad);
+  });
+}
+
+/** Actualiza la vista previa mientras el usuario escribe */
+function _actualizarPreviewPublicidad() {
+  var campos = [
+    { inputId: 'pub-municipio',   prevId: 'prev-mun-val',   prefijo: '' },
+    { inputId: 'pub-institucion', prevId: 'prev-institucion', prefijo: '' },
+    { inputId: 'pub-fecha',       prevId: 'prev-fecha-val', prefijo: '' },
+    { inputId: 'pub-horario',     prevId: 'prev-hor-val',   prefijo: '' }
+  ];
+  campos.forEach(function(c) {
+    var input = document.getElementById(c.inputId);
+    var prev  = document.getElementById(c.prevId);
+    if (input && prev) {
+      prev.textContent = input.value;
+    }
+  });
+}
+
+/** Genera la publicidad en una ventana nueva lista para imprimir */
+function _generarPublicidad() {
+  var requeridos = ['pub-municipio', 'pub-institucion', 'pub-fecha'];
+  for (var i = 0; i < requeridos.length; i++) {
+    var el = document.getElementById(requeridos[i]);
+    if (!el || !el.value.trim()) {
+      if (el) {
+        el.classList.add('border-red-400', 'ring-2', 'ring-red-100');
+        el.focus();
+        el.addEventListener('input', function() {
+          this.classList.remove('border-red-400', 'ring-2', 'ring-red-100');
+        }, { once: true });
+      }
+      return;
+    }
+  }
+
+  var datos = {
+    Municipio:   document.getElementById('pub-municipio').value.trim(),
+    Institucion: document.getElementById('pub-institucion').value.trim(),
+    Fecha:       document.getElementById('pub-fecha').value.trim(),
+    Horario:     document.getElementById('pub-horario').value.trim()
+  };
+
+  var btn  = document.getElementById('pub-btn-generar');
+  var texto = document.getElementById('pub-btn-texto');
+  btn.disabled = true;
+  texto.textContent = 'Cargando...';
+
+  fetch('administracion/documentos/templates/publicidad.html?t=' + Date.now())
+    .then(function(res) {
+      if (!res.ok) throw new Error('No se pudo cargar la plantilla.');
+      return res.text();
+    })
+    .then(function(html) {
+      // Reemplazar marcadores {{Clave}} con los valores
+      var doc = html;
+      Object.keys(datos).forEach(function(clave) {
+        var regex = new RegExp('\\{\\{' + clave + '\\}\\}', 'g');
+        doc = doc.replace(regex, datos[clave]);
+      });
+
+      // Guardar el HTML generado para el botón de imprimir
+      window._pubHtmlGenerado = doc;
+
+      // Mostrar en ventana nueva
+      var ventana = window.open('', '_blank', 'width=1100,height=800,scrollbars=yes');
+      ventana.document.write(doc);
+      ventana.document.close();
+      ventana.focus();
+
+      btn.disabled = false;
+      texto.textContent = 'Previsualizar';
+
+      var errorEl = document.getElementById('pub-error');
+      if (errorEl) errorEl.classList.add('hidden');
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      texto.textContent = 'Previsualizar';
+      var errorEl = document.getElementById('pub-error');
+      if (errorEl) {
+        errorEl.textContent = 'Error al cargar la plantilla: ' + err.toString();
+        errorEl.classList.remove('hidden');
+      }
+    });
+}
+
+/** Imprime directamente si ya se generó previamente */
+function _imprimirPublicidad() {
+  if (!window._pubHtmlGenerado) {
+    _generarPublicidad();
+    return;
+  }
+  var ventana = window.open('', '_blank', 'width=1100,height=800');
+  ventana.document.write(window._pubHtmlGenerado);
+  ventana.document.close();
+  ventana.focus();
+  setTimeout(function() { ventana.print(); }, 500);
+}
+
+/**
+ * Descarga la publicidad como imagen JPG usando html2canvas.
+ * Renderiza el HTML generado en un iframe oculto y captura el canvas.
+ */
+function _descargarPublicidad() {
+  if (!window._pubHtmlGenerado) {
+    _generarPublicidad();
+    setTimeout(function() {
+      if (window._pubHtmlGenerado) _descargarPublicidad();
+    }, 1500);
+    return;
+  }
+
+  var btn = document.getElementById('pub-btn-descargar');
+  if (btn) { btn.disabled = true; btn.textContent = 'Generando...'; }
+
+  // Crear iframe oculto para renderizar el HTML
+  var iframe = document.createElement('iframe');
+  iframe.style.cssText = 'position:fixed;left:-9999px;top:0;width:1055px;height:1491px;border:none;visibility:hidden;';
+  document.body.appendChild(iframe);
+
+  iframe.onload = function() {
+    // Cargar html2canvas dinámicamente si no está disponible
+    function capturar() {
+      var target = iframe.contentDocument.querySelector('.publicidad') || iframe.contentDocument.body;
+      html2canvas(target, {
+        width:       1055,
+        height:      1491,
+        scale:       1,
+        useCORS:     true,
+        allowTaint:  true,
+        logging:     false,
+        x:           0,
+        y:           0,        // ← ajusta este valor si los textos quedan desplazados en el JPG
+        scrollX:     0,
+        scrollY:     0,
+        windowWidth: 1055,
+        windowHeight: 1491
+      }).then(function(canvas) {
+        // Descargar como JPG
+        var mun    = document.getElementById('pub-municipio');
+        var nombre = 'Publicidad' + (mun && mun.value.trim() ? '-' + mun.value.trim() : '') + '.jpg';
+        var link   = document.createElement('a');
+        link.download = nombre;
+        link.href     = canvas.toDataURL('image/jpeg', 0.96);
+        link.click();
+
+        document.body.removeChild(iframe);
+        if (btn) { btn.disabled = false; btn.innerHTML = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Descargar'; }
+      }).catch(function(err) {
+        console.error('[Publicidad] Error al generar imagen:', err);
+        document.body.removeChild(iframe);
+        if (btn) { btn.disabled = false; btn.textContent = 'Descargar'; }
+        alert('No se pudo generar la imagen. Usa Imprimir → Guardar como PDF como alternativa.');
+      });
+    }
+
+    if (typeof html2canvas === 'function') {
+      capturar();
+    } else {
+      // Cargar html2canvas desde CDN
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      s.onload  = capturar;
+      s.onerror = function() {
+        document.body.removeChild(iframe);
+        if (btn) { btn.disabled = false; btn.textContent = 'Descargar'; }
+        alert('No se pudo cargar html2canvas. Verifica tu conexión a internet.');
+      };
+      document.head.appendChild(s);
+    }
+  };
+
+  iframe.srcdoc = window._pubHtmlGenerado.replace(
+    '</head>',
+    '<style>' +
+    'body{margin:0!important;padding:0!important;display:block!important;min-height:0!important;}' +
+    ':root{--offset-top: -11px;}' +
+    '.municipio{top: calc(332px + var(--offset-top))!important;}' +
+    '.institucion{top: calc(548px + var(--offset-top))!important;}' +
+    '.fecha{top: calc(1162px + var(--offset-top))!important;}' +
+    '.horario{top: calc(1200px + var(--offset-top))!important;}' +
+    '.municipio .fijo{color:#ffffff!important;}' +
+    '.municipio .dinamico{color:#d49500!important;}' +
+    '.fecha .fijo{color:#ffffff!important;}' +
+    '.fecha .dinamico{color:#d49500!important;}' +
+    '.horario .fijo{color:#ffffff!important;}' +
+    '.horario .dinamico{color:#d49500!important;}' +
+    '.institucion{color:#00363a!important;}' +
+    '</style></head>'
+  );
 }

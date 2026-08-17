@@ -8,7 +8,7 @@
     <!-- Logo -->
     <div class="admin-sidebar-logo">
       <div class="flex items-center gap-3">
-        <img src="https://github.com/Soportekgservices/Visiondeaguila/blob/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png?raw=true"
+        <img src="https://raw.githubusercontent.com/Soportekgservices/Visiondeaguila/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png"
              class="w-8 h-8 object-contain" alt="Logo">
         <div>
           <div class="text-white font-bold text-sm leading-tight">Vision de Aguila</div>

@@ -7,7 +7,7 @@
 
     <!-- Logo y título -->
     <div class="text-center mb-8">
-      <img src="https://github.com/Soportekgservices/Visiondeaguila/blob/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png?raw=true"
+      <img src="https://raw.githubusercontent.com/Soportekgservices/Visiondeaguila/10a459ffeafcfcedfcade0f0a2700b330668e52c/LOGO%20AGUILA%20VISION%202025%20(1).png"
            class="mx-auto w-20 mb-4" alt="Logo">
       <h1 class="text-verde-oscuro font-bold text-xl leading-tight">Panel Administrativo</h1>
       <p class="text-slate-400 text-sm mt-1">Optica Vision de Aguila</p>

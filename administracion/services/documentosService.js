@@ -35,7 +35,8 @@ var DocumentosService = {
     SOLICITUD_INSTITUCIONAL: 'solicitud-institucional',
     PERMISO_POLICIAL: 'permiso-policial',
     SOLICITUD_ESPACIO: 'solicitud-espacio',
-    HOJA_CONVENIO: 'hoja-convenio'
+    HOJA_CONVENIO: 'hoja-convenio',
+    PUBLICIDAD: 'publicidad'
   },
 
   /**
