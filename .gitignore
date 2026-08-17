@@ -11,3 +11,13 @@ $RECYCLE.BIN/
 
 # Logs
 *.log
+
+# Google Apps Script (no va al repo web)
+*.gs
+Código.gs
+
+# Documentos internos
+PENDIENTE-*.md
+
+# Python scripts temporales
+*.py
